@@ -1,0 +1,9 @@
+job_title:
+  css: '#main-content > section.two-pane-serp-page__results-list > ul > li:nth-child(1) > div > a > span'
+location:
+  css: '#main-content > section.two-pane-serp-page__results-list > ul > li:nth-child(1) > div > div.base-search-card__info > div > span'
+posted:
+  css: '#main-content > section.two-pane-serp-page__results-list > ul > li:nth-child(1) > div > div.base-search-card__info > div > time'
+link:
+  css: '#main-content > section.two-pane-serp-page__results-list > ul > li:nth-child(1) > div > a'
+  type: Link
