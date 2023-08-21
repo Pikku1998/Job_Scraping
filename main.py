@@ -1,5 +1,6 @@
 import requests
 import selectorlib
+from send_gmail import send
 
 
 URL = 'https://www.linkedin.com/jobs/search?keywords=Python%20Django%20Developer&location=India&locationId=&geoId' \
@@ -8,16 +9,31 @@ URL = 'https://www.linkedin.com/jobs/search?keywords=Python%20Django%20Developer
 
 def get_source(url):
     response = requests.get(url=url)
-    source = response.text
-    return source
+    page_source = response.text
+    return page_source
 
 
 def extract_data(page_source):
     extractor = selectorlib.Extractor.from_yaml_file('jobs.yaml')
-    data = extractor.extract(page_source)
-    return data
+    job_data = extractor.extract(page_source)
+    return job_data
+
+
+def send_data():
+    email_content = "Subject: Today's Latest Job posting on Linkedin\n"
+    if data['job_title'] and data['location'] and data['posted'] and data['link'] is not None:
+        email_content = email_content + data['job_title'] + '\n' + \
+                        'Location: ' + data['location'] + '\n' + \
+                        'Posted: ' + data['posted'] + '\n' + \
+                        'Link: '+data['link'] + 2 * '\n'
+        send(email_content)
+        print('Mail sent successfully..')
+    else:
+        print('Mail not sent as no data was found')
 
 
 if __name__ == '__main__':
     source = get_source(URL)
-    print(extract_data(source))
+    data = extract_data(source)
+    send_data()
+
